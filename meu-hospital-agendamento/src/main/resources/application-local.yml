@@ -1,0 +1,8 @@
+spring:
+  application:
+    name: meu-hospital-agendamento
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://localhost:5432/meu_hospital_agendamento
+    username: postgres
+    password: postgres
