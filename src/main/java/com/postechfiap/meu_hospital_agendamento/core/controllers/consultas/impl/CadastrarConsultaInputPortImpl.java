@@ -13,8 +13,8 @@ public class CadastrarConsultaInputPortImpl implements CadastrarConsultaInputPor
     private final CadastrarConsultaUseCase cadastrarConsultaUseCase;
 
     @Override
-    public void execute(CadastrarConsultaInputModel inputModel) {
-        cadastrarConsultaUseCase.execute(inputModel);
+    public void execute(CadastrarConsultaInputModel inputModel, String emailPaciente) {
+        cadastrarConsultaUseCase.execute(inputModel, emailPaciente);
     }
 
 }

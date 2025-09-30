@@ -58,10 +58,11 @@ public class ConsultaMedicaController {
     public ResponseEntity<String> cadastrarConsulta(@RequestHeader("Authorization") String authHeader, @RequestBody @Valid CadastrarConsultaRequestDTO cadastrarConsultaRequestDTO) {
         Claims claims = jwtService.getClaims(authHeader.replace("Bearer ", ""));
         String pacienteLogin = claims.getSubject();
+        String emailPaciente = (String) claims.get("email");
         try{
 
         UserAuthResponse userAuthResponse = authGateway.getUserByLogin(pacienteLogin, authHeader);
-            cadastrarConsultaInputPort.execute(cadastrarConsultaRequestDTO.toInputModel());
+            cadastrarConsultaInputPort.execute(cadastrarConsultaRequestDTO.toInputModel(), emailPaciente);
             return ResponseEntity.status(HttpStatus.CREATED).body("Consulta criada pelo:" + userAuthResponse.getEmail());
 
         }catch (RuntimeException e){
