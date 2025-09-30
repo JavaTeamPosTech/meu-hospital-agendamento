@@ -1,38 +1,33 @@
 server:
-  port: ${SERVER_PORT:8080}
-  error:
-    include-stacktrace: never
+  port: 8080
+
 spring:
   application:
     name: meu-hospital-agendamento
   datasource:
     driver-class-name: org.postgresql.Driver
-    password: ${POSTGRES_PASSWORD:postgres}
-    url: jdbc:postgresql://${POSTGRES_HOST:localhost}:${POSTGRES_PORT:5432}/${POSTGRES_DB:meu_hospital_agendamento}
-    username: ${POSTGRES_USER:postgres}
+    url: jdbc:postgresql://db-agendamento:5432/meu_hospital_agendamento
+    username: postgres
+    password: postgres
   jpa:
-    database-platform: org.hibernate.dialect.PostgreSQLDialect
     hibernate:
       ddl-auto: update
-    properties:
-      hibernate:
-        dialect: org.hibernate.dialect.PostgreSQLDialect
     show-sql: true
-  sql:
-    init:
-      data-locations: classpath:data.sql
-      mode: always
-auth:
-  service:
-    url: http://localhost:8081
+  kafka:
+    bootstrap-servers: kafka:9092
+    producer:
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
 
-#  logging:
-#    file:
-#      name: /var/log/app/application.log
 
 jwt:
   secret: ${JWT_SECRET_KEY:minhaChaveUltraSecretaComMaisDe32Bytes}
   prazoExpiracao: ${JWT_EXPIRATION_TIME:3600000}
+
+auth:
+  service:
+    url: http://auth-service:8081
+
 
 meumenu:
   admin:
